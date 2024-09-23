@@ -91,7 +91,7 @@ class LoginModel extends CI_model
 			FROM detail_location_shift dls
 			JOIN work w 
 			ON `dls`.work = `w`.id
-			JOIN Shift s ON `dls`.shift = `s`.id
+			JOIN shift s ON `dls`.shift = `s`.id
 			JOIN engineer e ON `w`.engineer = `e`.id
 			JOIN job j ON `w`.job = `j`.id
 			JOIN location l ON `w`.location = `l`.id
@@ -113,7 +113,7 @@ class LoginModel extends CI_model
 		{
 			$query = "SELECT `s`.id,`s`.shift
 			FROM detail_location_shift dls
-			RIGHT JOIN Shift s ON `dls`.shift = `s`.id
+			RIGHT JOIN shift s ON `dls`.shift = `s`.id
 			where `s`.id not in (select shift from detail_location_shift where work ='$work' )";
 			return $this->db->query($query);
 		}
@@ -259,7 +259,7 @@ class LoginModel extends CI_model
 	//get work_activity by engineer && date & shift & location
 	public function getWorkActivityEngineer($engineer,$date,$shift,$location)
 	{
-		$query = "SELECT `ds`.time_start, `wa`.respon_time ,`ds`.activity_shift , `wa`.information , `dls`.work , `wa`.work_date , `e`.name , `wa`.detail_shift , `w`.location , `dls`.Shift as shiftId , `s`.shift , `l`.location as location_name , `e`.id as engineerId
+		$query = "SELECT `ds`.time_start, `wa`.respon_time ,`ds`.activity_shift , `wa`.information , `dls`.work , `wa`.work_date , `e`.name , `wa`.detail_shift , `w`.location , `dls`.shift as shiftId , `s`.shift , `l`.location as location_name , `e`.id as engineerId
 		FROM 
 		work_activity wa join detail_shift ds ON `wa`.detail_shift = `ds`.id
 		JOIN detail_location_shift dls ON `ds`.shift = `dls`.shift
